@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>HTML</title>
+</head>
+<body>
+	<input type='text' id='input' placeholder='Input'/>
+	<input type='submit' id='submit_button' value='Send'/>
+	<script type="text/javascript">
+		var submit  = document.getElementById('submit_button');
+    		submit.onclick = function() {
+        
+        		//Create a request object
+        		var request = new XMLHttpRequest();
+        
+        		//Capture the response and store it in a variable
+        		request.onreadystatechange = function (){
+          		if (request.readyState === XMLHttpRequest.DONE){
+              		//Take some action
+              		if (request.status === 200) {
+                  		alert('Data sent sucessfully');
+              		} else{
+                  		alert('Someting went wrong on the server' + request.statusText);
+              		} 
+              	}
+          		}
+        	
+        		//Make the request
+        		var input = document.getElementById('input').value;
+        		request.open('POST', '/end_point', true);
+        		request.setRequestHeader('Content-Type', 'application/json');
+        		request.send(JSON.stringify({input: input}));
+		};
+
+</script>
+</body>
+</html>
